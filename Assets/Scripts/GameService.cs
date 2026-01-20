@@ -23,7 +23,7 @@ namespace DefaultNamespace
 
         private void OnTriggerEnterEventBird(OnTriggerEnterEvent obj)
         {
-        //    GameOver();
+            GameOver();
         }
 
         public void Dispose()
