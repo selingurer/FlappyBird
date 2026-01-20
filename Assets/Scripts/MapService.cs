@@ -57,7 +57,7 @@ public class MapService : IStartable
     {
         float screenCenterX = Helper.GetScreenCenterX();
 
-        CreatePipePair(START_PIPE_COUNT, screenCenterX);
+        CreatePipePair(START_PIPE_COUNT, screenCenterX + 5);
     }
 
     private void CreatePipePair(int size, float defaultPosX)

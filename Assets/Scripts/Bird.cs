@@ -6,6 +6,8 @@ namespace DefaultNamespace
 {
     public class Bird : MonoBehaviour
     {
+        [SerializeField] private float jumpPower = 5f;
+
         private Rigidbody2D _rigidbody2D;
 
         private void Awake()
@@ -19,16 +21,17 @@ namespace DefaultNamespace
                 EventBus<OnTriggerEnterEvent>.Publish(default);
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
+            // TODO add touch input support
+
             if (Keyboard.current == null)
             {
                 Debug.Log("KEYBOARD NULL");
                 return;
             }
             
-            if (Keyboard.current != null &&
-                Keyboard.current.spaceKey.isPressed)
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
                 Jump();
             }
@@ -36,7 +39,7 @@ namespace DefaultNamespace
 
         private void Jump()
         {
-            _rigidbody2D.linearVelocity = Vector2.up * 3f;
+            _rigidbody2D.linearVelocity = Vector2.up * jumpPower;
         }
     }
 }
