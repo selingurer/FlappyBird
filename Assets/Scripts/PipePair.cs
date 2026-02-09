@@ -6,16 +6,18 @@ public class PipePair : MonoBehaviour
 {
     private const float MOVE_SPEED = 2f;
     private const float END_POSITION_X = -10;
+    private const float COLLIDER_BOTTOM_OFFSET_X = 0;
 
-    [Header("Refs")]
-    [SerializeField] private Transform _topPipe;
-    [SerializeField] private Transform _bottomPipe;
+    [Header("Refs")] [SerializeField] private SpriteRenderer _spriteRendererTop;
+    [SerializeField] private SpriteRenderer _spriteRendererBottom;
+    [SerializeField] private BoxCollider2D _collider2DTop;
+    [SerializeField] private BoxCollider2D _collider2DBottom;
 
     private float _minPipeHeight = 0.5f;
     private float _maxPipeHeight = 4.5f;
-    
+
     private Tween _tween;
-    
+
     public void Setup(DifficultyData data)
     {
         Camera cam = Camera.main;
@@ -42,17 +44,25 @@ public class PipePair : MonoBehaviour
             gapCenterY - gapSize * 0.5f - levelBottomY;
 
         bottomHeight = Mathf.Clamp(bottomHeight, _minPipeHeight, _maxPipeHeight);
-        
-        _bottomPipe.localScale = new Vector3(1, bottomHeight, 1);
-        
+
+        UpdatePipeSize(bottomHeight, _spriteRendererBottom, _collider2DBottom,
+            new Vector2(COLLIDER_BOTTOM_OFFSET_X, bottomHeight / 2));
 
         float topHeight =
             levelTopY - (gapCenterY + gapSize * 0.5f);
-        
+
         topHeight = Mathf.Clamp(topHeight, _minPipeHeight, _maxPipeHeight);
 
-        _topPipe.localScale = new Vector3(1, topHeight, 1);
-  
+        UpdatePipeSize(topHeight, _spriteRendererTop, _collider2DTop,
+            new Vector2(COLLIDER_BOTTOM_OFFSET_X, -(topHeight / 2)));
+    }
+
+    private void UpdatePipeSize(float height, SpriteRenderer spriteRenderer, BoxCollider2D boxCollider2D,
+        Vector2 offset)
+    {
+        spriteRenderer.size = new Vector2(spriteRenderer.size.x, height);
+        boxCollider2D.size = spriteRenderer.size;
+        boxCollider2D.offset = offset;
     }
 
 

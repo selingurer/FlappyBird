@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4709ea4987cc4ae9a60c94f9417f401d, type: 3}
+  m_Name: BirdVisualData
+  m_EditorClassIdentifier: 
+  SpriteMidFlap: {fileID: -2444444294041275488, guid: 5a5ec96ee90500d40b8d9a9d5a173397, type: 3}
+  SpriteUpFlap: {fileID: -2376728985402196712, guid: ace3a7f51cf2b7e43bc267e248c7312e, type: 3}
+  SpriteDownFlap: {fileID: 8155579026580062065, guid: a1ebd2850c0517a41bdc3f45be8ee24f, type: 3}

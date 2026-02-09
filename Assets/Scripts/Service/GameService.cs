@@ -1,6 +1,5 @@
 ﻿using System;
 using DefaultNamespace.Event;
-using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -18,17 +17,17 @@ namespace DefaultNamespace
 
         public void Start()
         {
-            EventBus<OnTriggerEnterEvent>.Subscribe(OnTriggerEnterEventBird);
+            EventBus<BirdDead>.Subscribe(OnBirdDeadEvent);
         }
 
-        private void OnTriggerEnterEventBird(OnTriggerEnterEvent obj)
+        private void OnBirdDeadEvent(BirdDead obj)
         {
             GameOver();
         }
 
         public void Dispose()
         {
-            EventBus<OnTriggerEnterEvent>.Unsubscribe(OnTriggerEnterEventBird);
+            EventBus<BirdDead>.Unsubscribe(OnBirdDeadEvent);
         }
 
         private void GameOver()

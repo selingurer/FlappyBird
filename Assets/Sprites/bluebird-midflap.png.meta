@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: cfc8ab7dd3fa478458e996db7c7fb986
+guid: 4d21c4764121dad4cb8301a78b386dc5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1587897287246719090
-    second: 7658071d-ab47-403f-a258-a2cfe3fb5b82_0
+      213: -1193474465663719314
+    second: bluebird-midflap_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 7658071d-ab47-403f-a258-a2cfe3fb5b82_0
+      name: bluebird-midflap_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1024
-        height: 1536
+        width: 34
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e875add84d7a6f9e0800000000000000
-      internalID: -1587897287246719090
+      spriteID: e686d99fb4def6fe0800000000000000
+      internalID: -1193474465663719314
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      7658071d-ab47-403f-a258-a2cfe3fb5b82_0: -1587897287246719090
+      bluebird-midflap_0: -1193474465663719314
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

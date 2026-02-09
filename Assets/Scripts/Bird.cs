@@ -1,12 +1,14 @@
-﻿using DefaultNamespace.Event;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using VContainer;
+
 
 namespace DefaultNamespace
 {
     public class Bird : MonoBehaviour
     {
         private Rigidbody2D _rigidbody2D;
+        [Inject] IBirdStateService _birdStateService;
 
         private void Awake()
         {
@@ -16,22 +18,18 @@ namespace DefaultNamespace
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("PipePair"))
-                EventBus<OnTriggerEnterEvent>.Publish(default);
+                _birdStateService.OnDeath();
         }
 
         private void FixedUpdate()
         {
-            if (Keyboard.current == null)
-            {
-                Debug.Log("KEYBOARD NULL");
-                return;
-            }
-            
             if (Keyboard.current != null &&
                 Keyboard.current.spaceKey.isPressed)
             {
                 Jump();
             }
+
+            _birdStateService.EvaluateVelocity(_rigidbody2D.linearVelocity.y);
         }
 
         private void Jump()

@@ -1,6 +1,6 @@
 ﻿namespace DefaultNamespace.Event
 {
-    public struct OnTriggerEnterEvent
+    public struct BirdDead
     {
         
     }
