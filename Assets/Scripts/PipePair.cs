@@ -83,6 +83,9 @@ public class PipePair : MonoBehaviour
 
     private void OnDisable()
     {
+        if (_tween == null)
+            return;
+
         _tween.Kill();
         _tween = null;
     }

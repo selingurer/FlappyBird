@@ -1,4 +1,5 @@
 ﻿using DefaultNamespace.Event;
+using Event;
 
 namespace DefaultNamespace
 {

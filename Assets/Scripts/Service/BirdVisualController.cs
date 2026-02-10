@@ -1,7 +1,8 @@
 ﻿using System;
 using DefaultNamespace;
 using DefaultNamespace.Event;
-using DefaultNamespace.ScriptableObjects;
+using Event;
+using ScriptableObjects;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

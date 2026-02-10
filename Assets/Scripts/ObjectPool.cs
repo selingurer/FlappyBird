@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class ObjectPool<T> where T : MonoBehaviour
@@ -14,7 +15,7 @@ public class ObjectPool<T> where T : MonoBehaviour
 
     public ObjectPool(
         T prefab,
-        Transform parent,
+        [CanBeNull] Transform parent,
         int initialSize = 10,
         int maxCount = 100,
         int expandCount = 20)
@@ -23,6 +24,12 @@ public class ObjectPool<T> where T : MonoBehaviour
         _parent = parent;
         _maxCount = maxCount;
         _expandCount = expandCount;
+
+        if (_parent == null)
+        {
+            var gameObject = new GameObject(prefab.name);
+            _parent = gameObject.transform;
+        }
 
         CreatePool(initialSize);
     }
@@ -42,9 +49,6 @@ public class ObjectPool<T> where T : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Havuz boşsa otomatik genişler
-    /// </summary>
     public T GetObject()
     {
         if (_pool.Count == 0)
@@ -63,18 +67,12 @@ public class ObjectPool<T> where T : MonoBehaviour
         return obj;
     }
 
-    /// <summary>
-    /// Objeyi havuza geri bırakır
-    /// </summary>
     public void ReturnObject(T obj)
     {
         obj.gameObject.SetActive(false);
         _pool.Enqueue(obj);
     }
 
-    /// <summary>
-    /// Pool'u kontrollü şekilde büyütür
-    /// </summary>
     public void Expand()
     {
         if (_totalCreated >= _maxCount)

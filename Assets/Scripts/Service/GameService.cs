@@ -1,23 +1,25 @@
 ﻿using System;
+using DefaultNamespace;
 using DefaultNamespace.Event;
 using VContainer;
 using VContainer.Unity;
 
-namespace DefaultNamespace
+namespace Service
 {
     public class GameService : IStartable, IDisposable
     {
-        private readonly GameState _gameState;
+        private readonly IGameStateController _gameStateControllerController;
 
         [Inject]
-        public GameService(GameState gameState )
+        public GameService(IGameStateController gameStateControllerController )
         {
-            _gameState = gameState;
+            _gameStateControllerController = gameStateControllerController;
         }
 
         public void Start()
         {
             EventBus<BirdDead>.Subscribe(OnBirdDeadEvent);
+            _gameStateControllerController.SetState(GameStateType.GameStart);
         }
 
         private void OnBirdDeadEvent(BirdDead obj)
@@ -32,7 +34,9 @@ namespace DefaultNamespace
 
         private void GameOver()
         {
-            _gameState.Pause();
+            _gameStateControllerController.SetState(GameStateType.GameEnd);
+            _gameStateControllerController.Pause();
+            
         }
 
      

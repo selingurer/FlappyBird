@@ -11,7 +11,7 @@ public class MapService : IStartable
     private const int EXPANDED_PIPE_COUNT = 10;
 
     private readonly IDifficultyService _difficultyService;
-    private List<PipePair> _pipePairs = new List<PipePair>();
+    private List<PipePair> _pipePairs = new();
     private ObjectPool<PipePair> _pool;
     private PipePair _pair;
     private Transform _pairTransform;

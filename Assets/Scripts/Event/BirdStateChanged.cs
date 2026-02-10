@@ -1,4 +1,6 @@
-﻿namespace DefaultNamespace.Event
+﻿using DefaultNamespace;
+
+namespace Event
 {
     public struct BirdStateChanged
     {
