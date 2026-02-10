@@ -33,7 +33,7 @@ public class GameLifeTimeScope : LifetimeScope
             .WithParameter(_birdVisualData).WithParameter(_birdSpriteRenderer);
         builder.Register<SoundService>(Lifetime.Singleton)
             .As<ISoundService>().WithParameter(_soundDatas);
-        
+
         builder.Register<BirdSoundHandler>(Lifetime.Singleton).AsImplementedInterfaces().WithParameter(_birdSoundMap);
     }
 }

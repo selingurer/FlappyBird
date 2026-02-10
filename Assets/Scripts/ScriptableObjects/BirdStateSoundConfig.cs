@@ -17,7 +17,7 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "Bird State Sound Map", menuName = "ScriptableObjects/Bird State Sound Map")]
     public class BirdStateSoundConfig : ScriptableObject
     {
-        private BirdStateSoundEntry[] _entries;
+        public BirdStateSoundEntry[] _entries;
 
         private Dictionary<BirdState, SoundType> _lookup;
 
