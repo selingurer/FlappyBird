@@ -145,7 +145,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2492704346293970905}
-  - component: {fileID: 2865201298199095968}
+  - component: {fileID: 6823359243590450213}
   m_Layer: 5
   m_Name: GameStartPanel
   m_TagString: Untagged
@@ -173,7 +173,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &2865201298199095968
+--- !u!114 &6823359243590450213
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -182,9 +182,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3270080664349455987}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5bfbfe69ee34c59ae6a05f5a19cd60b, type: 3}
+  m_Script: {fileID: 11500000, guid: 56ab1c0683364024bf78257a32d7bb3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startButton: {fileID: 2762264053034678651}
 --- !u!1 &9087606440800206660
 GameObject:
   m_ObjectHideFlags: 0

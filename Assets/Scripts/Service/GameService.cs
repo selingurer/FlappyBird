@@ -1,44 +1,22 @@
-﻿using System;
-using DefaultNamespace;
-using DefaultNamespace.Event;
-using VContainer;
+﻿using VContainer;
 using VContainer.Unity;
 
 namespace Service
 {
-    public class GameService : IStartable, IDisposable
+    public class GameService : IStartable
     {
-        private readonly IGameStateController _gameStateControllerController;
+        private readonly IGameStateService _gameStateService;
 
         [Inject]
-        public GameService(IGameStateController gameStateControllerController )
+        public GameService(IGameStateService gameStateService )
         {
-            _gameStateControllerController = gameStateControllerController;
+            _gameStateService = gameStateService;
         }
 
         public void Start()
         {
-            EventBus<BirdDead>.Subscribe(OnBirdDeadEvent);
-            _gameStateControllerController.SetState(GameStateType.GameStart);
+            _gameStateService.SetState(GameStateType.GameStart);
         }
-
-        private void OnBirdDeadEvent(BirdDead obj)
-        {
-            GameOver();
-        }
-
-        public void Dispose()
-        {
-            EventBus<BirdDead>.Unsubscribe(OnBirdDeadEvent);
-        }
-
-        private void GameOver()
-        {
-            _gameStateControllerController.SetState(GameStateType.GameEnd);
-            _gameStateControllerController.Pause();
-            
-        }
-
-     
+        
     }
 }

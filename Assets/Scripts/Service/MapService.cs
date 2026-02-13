@@ -1,10 +1,12 @@
+using System;
 using System.Collections.Generic;
 using DefaultNamespace;
+using Event;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-public class MapService : IStartable
+public class MapService : IStartable, IDisposable
 {
     private const int PIPE_DISTANCE = 5;
     private const int START_PIPE_COUNT = 20;
@@ -35,11 +37,32 @@ public class MapService : IStartable
     private void RegisterEvents()
     {
         EventBus<PipePairMoveEndEvent>.Subscribe(OnPipePairMoveEndEvent);
+        EventBus<GameRestarted>.Subscribe(OnGameRestarted);
     }
 
     private void UnregisterEvents()
     {
         EventBus<PipePairMoveEndEvent>.Unsubscribe(OnPipePairMoveEndEvent);
+        EventBus<GameRestarted>.Unsubscribe(OnGameRestarted);
+    }
+
+    private void OnGameRestarted(GameRestarted obj)
+    {
+        ResetMap();
+    }
+
+    private void ResetMap()
+    {
+        foreach (var pipe in _pipePairs)
+        {
+            _pool.ReturnObject(pipe);
+        }
+
+        _pipePairs.Clear();
+        _returnPipeCount = 0;
+        _difficultyService.Reset();
+
+        CreateMap();
     }
 
     private void OnPipePairMoveEndEvent(PipePairMoveEndEvent pairMoveEndEvent)
@@ -79,5 +102,10 @@ public class MapService : IStartable
     {
         float startPosX = _pipePairs[^1].transform.position.x + PIPE_DISTANCE;
         CreatePipePair(EXPANDED_PIPE_COUNT, startPosX);
+    }
+
+    public void Dispose()
+    {
+        UnregisterEvents();
     }
 }

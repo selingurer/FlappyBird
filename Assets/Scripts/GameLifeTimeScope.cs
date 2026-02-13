@@ -23,19 +23,20 @@ public class GameLifeTimeScope : LifetimeScope
         builder.RegisterInstance(_pairPrefab);
         builder.RegisterComponentInHierarchy<AudioPlayer>().AsImplementedInterfaces();
 
-        builder.Register<GameStateControllerController>(Lifetime.Singleton).AsImplementedInterfaces();
+        builder.Register<GameStateService>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.Register<DifficultyService>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.Register<MapService>(Lifetime.Singleton).AsImplementedInterfaces();
+        builder.Register<PanelController>(Lifetime.Singleton).AsImplementedInterfaces().WithParameter(_uiPanelData);
         builder.Register<GameService>(Lifetime.Singleton).AsImplementedInterfaces()
             .WithParameter(_pairPrefab)
             .WithParameter(_pairTransform);
+        builder.Register<GameFlowController>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.Register<BirdStateService>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.Register<BirdVisualController>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf()
             .WithParameter(_birdVisualData).WithParameter(_birdSpriteRenderer);
         builder.Register<SoundService>(Lifetime.Singleton)
             .As<ISoundService>().WithParameter(_soundDatas);
         builder.Register<UIService>(Lifetime.Singleton).AsImplementedInterfaces().WithParameter(_uiPanelData).WithParameter(_canvasTransform);
-        builder.Register<PanelController>(Lifetime.Singleton).AsImplementedInterfaces().WithParameter(_uiPanelData);
         builder.Register<BirdSoundHandler>(Lifetime.Singleton).AsImplementedInterfaces().WithParameter(_birdSoundMap);
     }
 }

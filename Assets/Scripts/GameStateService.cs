@@ -10,7 +10,7 @@ public enum GameStateType
     GameEnd,
 }
 
-public class GameStateControllerController : IGameStateController
+public class GameStateService : IGameStateService
 {
     public bool IsPaused { get; private set; }
 
@@ -39,15 +39,35 @@ public class GameStateControllerController : IGameStateController
     public void SetState(GameStateType newState)
     {
         State = newState;
+        HandleStateSideEffects(State);
         
         EventBus<GameStateChanged>.Publish(new GameStateChanged
         {
             GameState = newState
         });
     }
+    
+    private void HandleStateSideEffects(GameStateType state)
+    {
+        switch (state)
+        {
+            case GameStateType.GamePlaying:
+                Resume();
+                break;
+
+            case GameStateType.GameEnd:
+                Pause();
+                break;
+
+            case GameStateType.GameStart:
+                Pause();
+                break;
+        }
+    }
+
 }
 
-public interface IGameStateController
+public interface IGameStateService
 {
     public void Pause();
     public void Resume();

@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 6806835671605600769}
   - component: {fileID: 4913810200325783387}
   m_Layer: 5
-  m_Name: Button
+  m_Name: PlayAgainButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -477,7 +477,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8862670299989313115}
-  - component: {fileID: 9054225980256162120}
+  - component: {fileID: 1435297680107380524}
   m_Layer: 5
   m_Name: GameOverPanel
   m_TagString: Untagged
@@ -505,7 +505,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &9054225980256162120
+--- !u!114 &1435297680107380524
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -514,9 +514,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5728503171443784519}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5bfbfe69ee34c59ae6a05f5a19cd60b, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e92827a3bd74b2297a5c423226e2695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playAgainButton: {fileID: 4913810200325783387}
 --- !u!1 &6296337182790182857
 GameObject:
   m_ObjectHideFlags: 0

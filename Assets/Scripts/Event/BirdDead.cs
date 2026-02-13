@@ -1,6 +1,8 @@
-﻿namespace DefaultNamespace.Event
+﻿using Event;
+
+namespace DefaultNamespace.Event
 {
-    public struct BirdDead
+    public class BirdDead
     {
         
     }

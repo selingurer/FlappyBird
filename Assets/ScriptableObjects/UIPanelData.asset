@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf55257de014d84b6b08d9b8848efd0, type: 3}
   m_Name: UIPanelData
   m_EditorClassIdentifier: 
-  GameStartPanel: {fileID: 2865201298199095968, guid: a3ce7a527c6e5b14ba1b6424457d57fd, type: 3}
+  GameStartPanel: {fileID: 6823359243590450213, guid: a3ce7a527c6e5b14ba1b6424457d57fd, type: 3}
   GameEndPanel: {fileID: 9054225980256162120, guid: 14b0329e13d1fd948af631f0f703af64, type: 3}
