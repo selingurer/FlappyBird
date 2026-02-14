@@ -16,12 +16,12 @@ MonoBehaviour:
   - Type: 2
     Clip: {fileID: 8300000, guid: ea8feebec0517b1449c3f44d3c9d4d7b, type: 3}
     Volume: 1
-    Pitch: 1.8
+    Pitch: 1.2
   - Type: 1
     Clip: {fileID: 8300000, guid: 355f25b20b2a4af48907cee1b53cb2bc, type: 3}
     Volume: 0.5
-    Pitch: 1.5
+    Pitch: 1.1
   - Type: 0
     Clip: {fileID: 8300000, guid: 5c20c78c93a92dd4a9c5f3040f651bed, type: 3}
     Volume: 0.5
-    Pitch: 1.2
+    Pitch: 1.1

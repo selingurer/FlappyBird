@@ -11,4 +11,17 @@ public class Helper
 
         return centerWorldPos.x;
     }
+
+    public static float GetScreenHeight()
+    {
+        Camera cam = Camera.main;
+
+        if (cam == null)
+        {
+            Debug.LogError("Main Camera not found!");
+            return 0f;
+        }
+
+        return cam.orthographicSize * 2f;
+    }
 }

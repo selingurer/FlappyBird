@@ -129,13 +129,13 @@ TextureImporter:
       name: pipe-red_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 52
-        height: 320
+        x: 2
+        y: 1
+        width: 48
+        height: 317
       alignment: 9
       pivot: {x: 0.5, y: 0}
-      border: {x: 10, y: 50, z: 10, w: 50}
+      border: {x: 10, y: 0, z: 10, w: 19}
       customData: 
       outline: []
       physicsShape: []
@@ -143,6 +143,116 @@ TextureImporter:
       bones: []
       spriteID: cf9a994fd38b52aa0800000000000000
       internalID: -6186335936887281156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pipe-red_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 295
+        width: 52
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 632fbc9dc1ce7b342897fc200f21eb02
+      internalID: -987629400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pipe-red_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 52
+        height: 295
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97f143cf7b769a74598da01f20c85ee5
+      internalID: 1163657457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pipe-red_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 292
+        width: 52
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc4eeb4e2f2b2f946bd6d52e8b8c16c3
+      internalID: 1913951085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pipe-red_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 52
+        height: 291
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: deba7ea0dd7209d43882808ea798cc72
+      internalID: 1650409185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pipe-red_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 293
+        width: 52
+        height: 27
+      alignment: 9
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e910b7d869a556488af8b6451db6ad7
+      internalID: 1936158703
       vertices: []
       indices: 
       edges: []
@@ -162,6 +272,11 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       pipe-red_0: -6186335936887281156
+      pipe-red_1: -987629400
+      pipe-red_2: 1163657457
+      pipe-red_3: 1913951085
+      pipe-red_4: 1650409185
+      pipe-red_5: 1936158703
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

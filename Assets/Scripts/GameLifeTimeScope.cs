@@ -19,13 +19,23 @@ public class GameLifeTimeScope : LifetimeScope
     [SerializeField] private Transform _canvasTransform;
     protected override void Configure(IContainerBuilder builder)
     {
-        builder.RegisterComponentInHierarchy<Bird>()
-            .As<IResettable>();
-        
         builder.RegisterInstance(_pairTransform);
         builder.RegisterInstance(_pairPrefab);
+        builder.RegisterInstance(Camera.main);
+        
+        builder.RegisterComponentInHierarchy<Bird>()
+            .As<IResettable>();
+        builder.Register<ObjectPool<PipePair>>(resolver =>
+                new ObjectPool<PipePair>(
+                    resolver,
+                    _pairPrefab,
+                    _pairTransform),
+            Lifetime.Singleton);
+     
         builder.RegisterComponentInHierarchy<AudioPlayer>().AsImplementedInterfaces();
-
+        builder.Register<PipeFactory>(Lifetime.Singleton);
+        builder.Register<PipeLayoutFactory>(Lifetime.Singleton);
+        builder.Register<PipeLayoutCalculator>(Lifetime.Singleton);
         builder.Register<GameStateService>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.Register<DifficultyService>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.Register<ScoreService>(Lifetime.Singleton).AsImplementedInterfaces();
@@ -44,5 +54,6 @@ public class GameLifeTimeScope : LifetimeScope
         builder.Register<BirdSoundHandler>(Lifetime.Singleton).AsImplementedInterfaces().WithParameter(_birdSoundMap);
         builder.Register<SaveLoadService>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.RegisterEntryPoint<ScorePersistenceHandler>();
+    
     }
 }

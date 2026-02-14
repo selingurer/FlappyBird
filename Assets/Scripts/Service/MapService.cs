@@ -1,107 +1,77 @@
 using System;
 using System.Collections.Generic;
 using DefaultNamespace;
-using Service;
-using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-public class MapService : IResettable, IStartable, IDisposable
+namespace Service
 {
-    private const int PIPE_DISTANCE = 5;
-    private const int START_PIPE_COUNT = 20;
-    private const int EXPANDED_PIPE_COUNT = 10;
-    
-    private readonly IDifficultyService _difficultyService;
-    private List<PipePair> _pipePairs = new();
-    private ObjectPool<PipePair> _pool;
-    private PipePair _pair;
-    private Transform _pairTransform;
-    private int _returnPipeCount;
-    private IObjectResolver _resolver;
+    public class MapService : IStartable, IDisposable, IResettable
+    {
+        private const int START_COUNT = 20;
+        private const int EXPAND_COUNT = 10;
+        private const float PIPE_DISTANCE = 4f;
 
-    [Inject]
-    public MapService(IDifficultyService difficultyService, Transform transform, PipePair pair,
-        IObjectResolver resolver)
-    {
-        _difficultyService = difficultyService;
-        _pair = pair;
-        _pairTransform = transform;
-        _resolver = resolver;
-    }
+        private readonly PipeFactory _factory;
+        private readonly List<PipePair> _pipes = new();
 
-    public void Start()
-    {
-        RegisterEvents();
-        _pool = new ObjectPool<PipePair>(_resolver, _pair, _pairTransform);
-        CreateMap();
-    }
-
-    private void RegisterEvents()
-    {
-        EventBus<PipePairMoveEndEvent>.Subscribe(OnPipePairMoveEndEvent);
-    }
-
-    private void UnregisterEvents()
-    {
-        EventBus<PipePairMoveEndEvent>.Unsubscribe(OnPipePairMoveEndEvent);
-    }
-    
-    public void Reset()
-    {
-        foreach (var pipe in _pipePairs)
+        [Inject]
+        public MapService(PipeFactory factory)
         {
-            _pool.ReturnObject(pipe);
+            _factory = factory;
         }
 
-        _pipePairs.Clear();
-        _returnPipeCount = 0;
-        _difficultyService.Reset();
-
-        CreateMap();
-    }
-
-    private void OnPipePairMoveEndEvent(PipePairMoveEndEvent pairMoveEndEvent)
-    {
-        _pool.ReturnObject(pairMoveEndEvent.Pair);
-        _pipePairs.Remove(pairMoveEndEvent.Pair);
-        _returnPipeCount++;
-        if (_returnPipeCount % 10 == 0)
+        public void Start()
         {
-            ExpandMap();
+            EventBus<PipePairMoveEndEvent>.Subscribe(OnPipeEnd);
+            CreateInitial();
         }
-    }
 
-    private void CreateMap()
-    {
-        float screenCenterX = Helper.GetScreenCenterX();
-
-        CreatePipePair(START_PIPE_COUNT, screenCenterX + 1);
-    }
-
-    private void CreatePipePair(int size, float defaultPosX)
-    {
-        DifficultyData data = _difficultyService.GetCurrent();
-        for (int i = 0; i < size; i++)
+        private void CreateInitial()
         {
-            var obj = _pool.GetObject();
-            Vector3 pos = obj.transform.position;
-            pos.x = defaultPosX + PIPE_DISTANCE * i;
-            obj.transform.position = pos;
-            obj.Setup(data);
-            obj.MoveStart();
-            _pipePairs.Add(obj);
+            float startX = Helper.GetScreenCenterX() + 1;
+
+            for (int i = 0; i < START_COUNT; i++)
+            {
+                var pipe = _factory.Create(startX + i * PIPE_DISTANCE);
+                _pipes.Add(pipe);
+            }
         }
-    }
 
-    private void ExpandMap()
-    {
-        float startPosX = _pipePairs[^1].transform.position.x + PIPE_DISTANCE;
-        CreatePipePair(EXPANDED_PIPE_COUNT, startPosX);
-    }
+        private void OnPipeEnd(PipePairMoveEndEvent e)
+        {
+            _factory.Return(e.Pair);
+            _pipes.Remove(e.Pair);
 
-    public void Dispose()
-    {
-        UnregisterEvents();
+            if (_pipes.Count % 10 == 0)
+            {
+                Expand();
+            }
+        }
+
+        private void Expand()
+        {
+            float startX = _pipes[^1].transform.position.x + PIPE_DISTANCE;
+
+            for (int i = 0; i < EXPAND_COUNT; i++)
+            {
+                var pipe = _factory.Create(startX + i * PIPE_DISTANCE);
+                _pipes.Add(pipe);
+            }
+        }
+
+        public void Reset()
+        {
+            foreach (var pipe in _pipes)
+                _factory.Return(pipe);
+
+            _pipes.Clear();
+            CreateInitial();
+        }
+
+        public void Dispose()
+        {
+            EventBus<PipePairMoveEndEvent>.Unsubscribe(OnPipeEnd);
+        }
     }
 }
