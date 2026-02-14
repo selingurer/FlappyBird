@@ -13,14 +13,16 @@ namespace ScriptableObjects.UI
         private Dictionary<UIPanel, ObjectPool<UIPanel>> _pools;
         private List<UIPanel> _activeAllPanels = new List<UIPanel>();
         private Transform _canvasTransform;
+        private IObjectResolver _resolver;
 
         [Inject]
-        public UIService(UIPanelData panelData, Transform canvasTransform)
+        public UIService(UIPanelData panelData, Transform canvasTransform, IObjectResolver resolver)
         {
             _panelData = panelData;
             _pools = new Dictionary<UIPanel, ObjectPool<UIPanel>>();
             _canvasTransform = canvasTransform;
-            
+            _resolver = resolver;
+
             RegisterPool(_panelData.GameStartPanel);
             RegisterPool(_panelData.GameEndPanel);
         }
@@ -29,7 +31,7 @@ namespace ScriptableObjects.UI
         {
             if (!_pools.ContainsKey(prefab))
             {
-                var pool = new ObjectPool<UIPanel>(prefab, _canvasTransform, initialSize: 1, maxCount: 1);
+                var pool = new ObjectPool<UIPanel>(_resolver, prefab, _canvasTransform, initialSize: 1, maxCount: 1);
                 _pools.Add(prefab, pool);
             }
         }

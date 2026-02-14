@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 public class ObjectPool<T> where T : MonoBehaviour
 {
@@ -12,14 +14,17 @@ public class ObjectPool<T> where T : MonoBehaviour
 
     private readonly Queue<T> _pool = new();
     private int _totalCreated;
+    private IObjectResolver _resolver;
 
     public ObjectPool(
+        IObjectResolver resolver,
         T prefab,
         [CanBeNull] Transform parent,
         int initialSize = 10,
         int maxCount = 100,
         int expandCount = 20)
     {
+        _resolver = resolver;
         _prefab = prefab;
         _parent = parent;
         _maxCount = maxCount;
@@ -41,7 +46,7 @@ public class ObjectPool<T> where T : MonoBehaviour
             if (_totalCreated >= _maxCount)
                 return;
 
-            var obj = Object.Instantiate(_prefab, _parent);
+            var obj = _resolver.Instantiate(_prefab, _parent);
             obj.gameObject.SetActive(false);
 
             _pool.Enqueue(obj);

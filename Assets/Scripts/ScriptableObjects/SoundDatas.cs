@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Service;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ScriptableObjects
 {
@@ -11,6 +12,7 @@ namespace ScriptableObjects
         public SoundType Type;
         public AudioClip Clip;
         [Range(0f, 1f)] public float Volume = 1f;
+        [Range(1f, 2f)] public float Pitch = 1f;
     }
 
     [CreateAssetMenu(fileName = "SoundDatas", menuName = "ScriptableObjects/SoundDatas")]

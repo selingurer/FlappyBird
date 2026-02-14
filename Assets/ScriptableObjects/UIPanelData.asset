@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: UIPanelData
   m_EditorClassIdentifier: 
   GameStartPanel: {fileID: 6823359243590450213, guid: a3ce7a527c6e5b14ba1b6424457d57fd, type: 3}
-  GameEndPanel: {fileID: 9054225980256162120, guid: 14b0329e13d1fd948af631f0f703af64, type: 3}
+  GameEndPanel: {fileID: 1435297680107380524, guid: 14b0329e13d1fd948af631f0f703af64, type: 3}
+  GamePlayingPanel: {fileID: 4291074388139802462, guid: 770277875f1b9374aaadbfc5246d86d8, type: 3}

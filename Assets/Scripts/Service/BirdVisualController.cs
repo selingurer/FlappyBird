@@ -1,6 +1,5 @@
 ﻿using System;
 using DefaultNamespace;
-using DefaultNamespace.Event;
 using Event;
 using ScriptableObjects;
 using UnityEngine;

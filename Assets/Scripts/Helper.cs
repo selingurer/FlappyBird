@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class Helper
 {
-    /// <summary>
-    /// Telefon ekranının (camera view) world space'teki orta X noktasını döner
-    /// </summary>
     public static float GetScreenCenterX()
     {
         Camera cam = Camera.main;

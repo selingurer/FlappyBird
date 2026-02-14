@@ -1,6 +1,7 @@
 using DefaultNamespace;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PipePair : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class PipePair : MonoBehaviour
     [SerializeField] private SpriteRenderer _spriteRendererBottom;
     [SerializeField] private BoxCollider2D _collider2DTop;
     [SerializeField] private BoxCollider2D _collider2DBottom;
+    [SerializeField] private SpriteRenderer _spriteRendererMiddle;
+    [SerializeField] private BoxCollider2D _collider2DMiddle;
 
     private float _minPipeHeight = 0.5f;
     private float _maxPipeHeight = 4.5f;
@@ -55,6 +58,15 @@ public class PipePair : MonoBehaviour
 
         UpdatePipeSize(topHeight, _spriteRendererTop, _collider2DTop,
             new Vector2(COLLIDER_BOTTOM_OFFSET_X, -(topHeight / 2)));
+        
+        float middleOffsetY = gapCenterY - transform.position.y;
+
+        UpdatePipeSize(
+            gapSize,
+            _spriteRendererMiddle,
+            _collider2DMiddle,
+            new Vector2(COLLIDER_BOTTOM_OFFSET_X, middleOffsetY)
+        );
     }
 
     private void UpdatePipeSize(float height, SpriteRenderer spriteRenderer, BoxCollider2D boxCollider2D,

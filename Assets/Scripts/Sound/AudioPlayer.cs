@@ -9,6 +9,7 @@ namespace Sound
 
         public void Play(SoundData data)
         {
+            _source.pitch = data.Pitch;
             _source.PlayOneShot(data.Clip, data.Volume);
         }
     }

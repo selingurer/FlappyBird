@@ -1,57 +1,53 @@
 using System;
 using System.Collections.Generic;
 using DefaultNamespace;
-using Event;
+using Service;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-public class MapService : IStartable, IDisposable
+public class MapService : IResettable, IStartable, IDisposable
 {
     private const int PIPE_DISTANCE = 5;
     private const int START_PIPE_COUNT = 20;
     private const int EXPANDED_PIPE_COUNT = 10;
-
+    
     private readonly IDifficultyService _difficultyService;
     private List<PipePair> _pipePairs = new();
     private ObjectPool<PipePair> _pool;
     private PipePair _pair;
     private Transform _pairTransform;
     private int _returnPipeCount;
+    private IObjectResolver _resolver;
 
     [Inject]
-    public MapService(IDifficultyService difficultyService, Transform transform, PipePair pair)
+    public MapService(IDifficultyService difficultyService, Transform transform, PipePair pair,
+        IObjectResolver resolver)
     {
         _difficultyService = difficultyService;
         _pair = pair;
         _pairTransform = transform;
+        _resolver = resolver;
     }
 
     public void Start()
     {
         RegisterEvents();
-        _pool = new ObjectPool<PipePair>(_pair, _pairTransform);
+        _pool = new ObjectPool<PipePair>(_resolver, _pair, _pairTransform);
         CreateMap();
     }
 
     private void RegisterEvents()
     {
         EventBus<PipePairMoveEndEvent>.Subscribe(OnPipePairMoveEndEvent);
-        EventBus<GameRestarted>.Subscribe(OnGameRestarted);
     }
 
     private void UnregisterEvents()
     {
         EventBus<PipePairMoveEndEvent>.Unsubscribe(OnPipePairMoveEndEvent);
-        EventBus<GameRestarted>.Unsubscribe(OnGameRestarted);
     }
-
-    private void OnGameRestarted(GameRestarted obj)
-    {
-        ResetMap();
-    }
-
-    private void ResetMap()
+    
+    public void Reset()
     {
         foreach (var pipe in _pipePairs)
         {
@@ -80,7 +76,7 @@ public class MapService : IStartable, IDisposable
     {
         float screenCenterX = Helper.GetScreenCenterX();
 
-        CreatePipePair(START_PIPE_COUNT, screenCenterX);
+        CreatePipePair(START_PIPE_COUNT, screenCenterX + 1);
     }
 
     private void CreatePipePair(int size, float defaultPosX)

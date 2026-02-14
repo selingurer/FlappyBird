@@ -1,5 +1,5 @@
-﻿using DefaultNamespace.Event;
-using Event;
+﻿using Event;
+using Service;
 
 namespace DefaultNamespace
 {
@@ -29,7 +29,12 @@ namespace DefaultNamespace
         public void OnDeath()
         {
             SetState(BirdState.Dead);
-            EventBus<BirdDead>.Publish(new BirdDead());
+           
+        }
+
+        public void Reset()
+        {
+            _currentState = BirdState.MidFlap;
         }
 
 
@@ -47,7 +52,7 @@ namespace DefaultNamespace
         }
     }
 
-    public interface IBirdStateService
+    public interface IBirdStateService : IResettable
     {
         public void EvaluateVelocity(float yVelocity);
         public void OnDeath();

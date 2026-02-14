@@ -39,6 +39,7 @@ namespace ScriptableObjects.UI
                     _uIService.ShowPanel(_uIPanelData.GameStartPanel);
                     break;
                 case GameStateType.GamePlaying:
+                    _uIService.ShowPanel(_uIPanelData.GamePlayingPanel);
                     break;
                 case GameStateType.GameEnd:
                     _uIService.ShowPanel(_uIPanelData.GameEndPanel);

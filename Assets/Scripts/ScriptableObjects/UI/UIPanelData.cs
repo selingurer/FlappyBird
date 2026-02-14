@@ -8,5 +8,6 @@ namespace ScriptableObjects.UI
     {
         public UIPanel GameStartPanel;
         public UIPanel GameEndPanel;
+        public UIPanel GamePlayingPanel;
     }
 }

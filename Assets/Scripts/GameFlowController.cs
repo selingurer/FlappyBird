@@ -1,53 +1,58 @@
 ﻿using System;
-using DefaultNamespace.Event;
+using System.Collections.Generic;
+using DefaultNamespace;
 using Event;
 using Event.ButtonClick;
+using Service;
 using VContainer;
 using VContainer.Unity;
 
-namespace DefaultNamespace
+public class GameFlowController : IInitializable, IDisposable
 {
-    public class GameFlowController : IInitializable, IDisposable
+    private readonly IEnumerable<IResettable> _resettables;
+    private readonly IGameStateService _gameStateService;
+    
+    [Inject]
+    public GameFlowController(IGameStateService gameStateService, IEnumerable<IResettable> resettables)
     {
-        private readonly IGameStateService _gameStateService;
+        _gameStateService = gameStateService;
+        _resettables = resettables;
+    }
 
-        [Inject]
-        public GameFlowController(IGameStateService gameStateService)
+    public void Initialize()
+    {
+        EventBus<StartGameButtonClicked>.Subscribe(OnStartGameClicked);
+        EventBus<BirdStateChanged>.Subscribe(OnBirdStateChanged);
+        EventBus<PlayAgainButtonClicked>.Subscribe(OnGamePlayAgainButtonClicked);
+    }
+
+    private void OnGamePlayAgainButtonClicked(PlayAgainButtonClicked obj)
+    {
+        _gameStateService.SetState(GameStateType.GameStart);
+
+        foreach (var resettable in _resettables)
         {
-            _gameStateService = gameStateService;
+            resettable.Reset();
         }
+    }
 
-        public void Initialize()
-        {
-            EventBus<StartGameButtonClicked>.Subscribe(OnStartGameClicked);
-            EventBus<BirdDead>.Subscribe(OnBirdDead);
-            EventBus<PlayAgainButtonClicked>.Subscribe(OnGamePlayAgainButtonClicked);
-        }
-
-        private void OnGamePlayAgainButtonClicked(PlayAgainButtonClicked obj)
-        {
-            _gameStateService.SetState(GameStateType.GameStart);
-            EventBus<GameRestarted>.Publish(new GameRestarted());
-        }
-
-        private void OnBirdDead(BirdDead obj)
+    private void OnBirdStateChanged(BirdStateChanged stateData)
+    {
+        if (stateData.BirdState == BirdState.Dead)
         {
             _gameStateService.SetState(GameStateType.GameEnd);
-
         }
+    }
 
-        private void OnStartGameClicked(StartGameButtonClicked obj)
-        {
-            _gameStateService.SetState(GameStateType.GamePlaying);
+    private void OnStartGameClicked(StartGameButtonClicked obj)
+    {
+        _gameStateService.SetState(GameStateType.GamePlaying);
+    }
 
-        }
-
-        public void Dispose()
-        {
-            EventBus<StartGameButtonClicked>.Unsubscribe(OnStartGameClicked);
-            EventBus<BirdDead>.Unsubscribe(OnBirdDead);
-            EventBus<PlayAgainButtonClicked>.Unsubscribe(OnGamePlayAgainButtonClicked);
-        }
-        
+    public void Dispose()
+    {
+        EventBus<StartGameButtonClicked>.Unsubscribe(OnStartGameClicked);
+        EventBus<BirdStateChanged>.Unsubscribe(OnBirdStateChanged);
+        EventBus<PlayAgainButtonClicked>.Unsubscribe(OnGamePlayAgainButtonClicked);
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System;
 using DefaultNamespace;
-using DefaultNamespace.Event;
 using Event;
 using ScriptableObjects;
 using Service;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -23,7 +23,6 @@ namespace Sound
 
         public void Start()
         {
-           
             EventBus<BirdStateChanged>.Subscribe(OnBirdState);
         }
 
@@ -34,6 +33,7 @@ namespace Sound
 
         private void OnBirdState(BirdStateChanged stateData)
         {
+            
             if (_birdStateSoundConfig.Lookup.TryGetValue(stateData.BirdState, out var sound))
                 _soundService.Play(sound);
         }

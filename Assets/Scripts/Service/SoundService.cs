@@ -8,7 +8,7 @@ namespace Service
     {
         BirdFlapUp = 0,
         BirdFlapDown = 1,
-        BirdDie = 2,
+        BirdDead = 2,
 
         ButtonClick = 3,
         ButtonBack = 4,
