@@ -1,21 +1,23 @@
-﻿using DefaultNamespace;
+﻿using System;
+using DefaultNamespace;
 using Service;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
 
-public class Bird : MonoBehaviour , IResettable
+public class Bird : MonoBehaviour, IResettable
 {
     private Rigidbody2D _rigidbody2D;
     private Vector3 _startPos;
 
-    [Inject] IBirdStateService _birdStateService;
+    [Inject] private IBirdStateService _birdStateService;
+    [Inject] private ITouchService _touchService;
 
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _startPos = GetBirdStartPosition(Camera.main);
-            
+        _touchService.OnTap += Jump;
     }
 
     private static Vector3 GetBirdStartPosition(Camera cam)
@@ -39,12 +41,6 @@ public class Bird : MonoBehaviour , IResettable
 
     private void FixedUpdate()
     {
-        if (Keyboard.current != null &&
-            Keyboard.current.spaceKey.isPressed)
-        {
-            Jump();
-        }
-
         _birdStateService.EvaluateVelocity(_rigidbody2D.linearVelocity.y);
     }
 
@@ -52,10 +48,15 @@ public class Bird : MonoBehaviour , IResettable
     {
         _rigidbody2D.linearVelocity = Vector2.up * 3f;
     }
-        
+
     public void Reset()
     {
         _rigidbody2D.linearVelocity = Vector2.zero;
         transform.position = _startPos;
+    }
+
+    private void OnDestroy()
+    {
+        _touchService.OnTap -= Jump;
     }
 }

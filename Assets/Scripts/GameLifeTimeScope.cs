@@ -33,6 +33,7 @@ public class GameLifeTimeScope : LifetimeScope
             Lifetime.Singleton);
      
         builder.RegisterComponentInHierarchy<AudioPlayer>().AsImplementedInterfaces();
+        builder.Register<LeanTouchService>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.Register<PipeFactory>(Lifetime.Singleton);
         builder.Register<PipeLayoutFactory>(Lifetime.Singleton);
         builder.Register<PipeLayoutCalculator>(Lifetime.Singleton);
