@@ -23,7 +23,7 @@ public class GameStateService : IGameStateService
         IsPaused = true;
 
         Time.timeScale = 0f;
-       // DOTween.PauseAll();
+        DOTween.PauseAll();
     }
 
     public void Resume()

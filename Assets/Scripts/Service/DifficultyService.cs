@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using DefaultNamespace;
+using UnityEngine;
 using VContainer.Unity;
 
-namespace DefaultNamespace
+namespace Service
 {
     public class DifficultyService : ITickable , IDifficultyService
     {
@@ -42,9 +43,8 @@ namespace DefaultNamespace
         }
     }
 
-    public interface IDifficultyService
+    public interface IDifficultyService : IResettable
     {
         public DifficultyData GetCurrent();
-        public void Reset();
     }
 }
