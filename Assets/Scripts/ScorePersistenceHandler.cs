@@ -1,5 +1,6 @@
 ﻿using System;
 using DefaultNamespace;
+using Event;
 using Event.Score;
 using Service;
 using VContainer;

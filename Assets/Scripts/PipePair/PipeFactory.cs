@@ -1,5 +1,4 @@
-﻿using DefaultNamespace;
-using Service;
+﻿using Service;
 using UnityEngine;
 using VContainer;
 

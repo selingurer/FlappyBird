@@ -1,3 +1,4 @@
+using Booster;
 using DefaultNamespace;
 using ScriptableObjects;
 using ScriptableObjects.UI;
@@ -17,6 +18,8 @@ public class GameLifeTimeScope : LifetimeScope
     [SerializeField] private BirdStateSoundConfig _birdSoundMap;
     [SerializeField] private UIPanelData _uiPanelData;
     [SerializeField] private Transform _canvasTransform;
+    [SerializeField] private PickupSpawnData _pickupSpawnData;
+    [SerializeField] private BoosterDatabase _boosterDatabase;
     protected override void Configure(IContainerBuilder builder)
     {
         builder.RegisterInstance(_pairTransform);
@@ -32,6 +35,9 @@ public class GameLifeTimeScope : LifetimeScope
                     _pairTransform),
             Lifetime.Singleton);
      
+        
+        builder.Register<MagnetFlightBooster>(Lifetime.Singleton).As<IBooster>();
+        
         builder.RegisterComponentInHierarchy<AudioPlayer>().AsImplementedInterfaces();
         builder.Register<LeanTouchService>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.Register<PipeFactory>(Lifetime.Singleton);
@@ -55,6 +61,9 @@ public class GameLifeTimeScope : LifetimeScope
         builder.Register<BirdSoundHandler>(Lifetime.Singleton).AsImplementedInterfaces().WithParameter(_birdSoundMap);
         builder.Register<SaveLoadService>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.RegisterEntryPoint<ScorePersistenceHandler>();
+        builder.Register<BoosterService>(Lifetime.Singleton).AsImplementedInterfaces().WithParameter(_boosterDatabase);
+        builder.Register<BoosterPickupService>(Lifetime.Singleton).AsImplementedInterfaces().WithParameter(_pickupSpawnData);
+        
     
     }
 }

@@ -1,8 +1,8 @@
-﻿namespace DefaultNamespace
-{
-    using System;
-    using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
+namespace Event
+{
     public static class EventBus<T>
     {
         private static readonly List<Action<T>> _listeners = new();

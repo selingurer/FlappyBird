@@ -1,10 +1,11 @@
-﻿using DefaultNamespace;
+﻿using Event;
 using Event.Score;
 
 namespace Service
 {
     public class ScoreService : IScoreService
     {
+        private const int SCORE = 1;
         private int _currentScore;
         private int _highScore;
 
@@ -18,9 +19,9 @@ namespace Service
             return _highScore;
         }
 
-        public void AddScore(int score)
+        public void AddScore()
         {
-            _currentScore += score;
+            _currentScore += SCORE;
 
             EventBus<ScoreChanged>.Publish(new ScoreChanged
             {
@@ -41,7 +42,7 @@ namespace Service
         {
             if (_highScore == savedHighScore)
                 return;
-            
+
             _highScore = savedHighScore;
             EventBus<HighScoreChanged>.Publish(new HighScoreChanged
             {
@@ -61,7 +62,7 @@ namespace Service
 
         public int GetHighScore();
 
-        public void AddScore(int score);
+        public void AddScore();
 
         public void Init(int savedHighScore);
     }

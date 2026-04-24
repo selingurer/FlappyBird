@@ -839,9 +839,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: de775799d0257a14083c8cefd4c2951f, type: 2}
     - target: {fileID: 6184961964566654794, guid: faab3f35c94e10048b5036d45fdfe2bd, type: 3}
+      propertyPath: _boosterDatabase
+      value: 
+      objectReference: {fileID: 11400000, guid: f952e293fe63ca84aad6e68461c9fe27, type: 2}
+    - target: {fileID: 6184961964566654794, guid: faab3f35c94e10048b5036d45fdfe2bd, type: 3}
       propertyPath: _canvasTransform
       value: 
       objectReference: {fileID: 1594874321}
+    - target: {fileID: 6184961964566654794, guid: faab3f35c94e10048b5036d45fdfe2bd, type: 3}
+      propertyPath: _pickupSpawnData
+      value: 
+      objectReference: {fileID: 11400000, guid: a896596e8d6a77842b230b45785d9b57, type: 2}
     - target: {fileID: 6184961964566654794, guid: faab3f35c94e10048b5036d45fdfe2bd, type: 3}
       propertyPath: _birdSpriteRenderer
       value: 

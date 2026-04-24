@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ScriptableObjects.UI
 {
-    [CreateAssetMenu(fileName = "UIPanelData", menuName = "ScriptableObject/UIPanelData")]
+    [CreateAssetMenu(fileName = "UIPanelData", menuName = "ScriptableObjects/UIPanelData")]
     public class UIPanelData : ScriptableObject
     {
         public UIPanel GameStartPanel;

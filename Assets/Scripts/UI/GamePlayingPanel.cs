@@ -1,6 +1,7 @@
 using System;
 using DefaultNamespace;
 using DefaultNamespace.UI;
+using Event;
 using Event.Score;
 using TMPro;
 using UnityEngine;

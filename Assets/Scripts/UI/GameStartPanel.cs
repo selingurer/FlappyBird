@@ -1,4 +1,5 @@
-﻿using Event.ButtonClick;
+﻿using Event;
+using Event.ButtonClick;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -1,5 +1,11 @@
+using System;
 using DefaultNamespace;
+using Event;
+using Event.Boosters;
+using Event.GameFlow;
+using Service;
 using UnityEngine;
+using VContainer;
 
 public class PipePair : MonoBehaviour
 {
@@ -8,11 +14,34 @@ public class PipePair : MonoBehaviour
     [SerializeField] private Transform _middle;
     [SerializeField] private Transform _topMouth;
     [SerializeField] private Transform _bottomMouth;
-
+    [SerializeField] private PipePassTrigger _pipePassTrigger;
     [SerializeField] private BoxCollider2D _middleCol;
 
 
     [SerializeField] private PipeMover _mover;
+    [Inject] IScoreService _scoreService;
+    public int Index { get; set; }
+    public Transform PipePassTriggerTransform => _pipePassTrigger.transform;
+
+    private void OnEnable()
+    {
+        _pipePassTrigger.OnPassed += OnPassed;
+    }
+
+    private void OnDisable()
+    {
+        _pipePassTrigger.OnPassed -= OnPassed;
+    }
+
+    private void OnPassed()
+    {
+        _scoreService.AddScore();
+        Debug.Log(Index);
+        EventBus<OnPipePassTrigger>.Publish(new OnPipePassTrigger
+        {
+            Index = Index,
+        });
+    }
 
     public void ApplyLayout(PipeLayout layout)
     {
@@ -43,11 +72,8 @@ public class PipePair : MonoBehaviour
 
         _middle.localPosition = new Vector3(0, layout.CenterY, 0);
         _middleCol.size = new Vector2(_middleCol.size.x, layout.GapSize);
-
-
-
     }
-    
+
     public void StartMove()
     {
         _mover.Move(OnMoveCompleted);

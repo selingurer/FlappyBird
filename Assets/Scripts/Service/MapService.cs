@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DefaultNamespace;
+using Event;
 using VContainer;
 using VContainer.Unity;
 
 namespace Service
 {
-    public class MapService : IStartable, IDisposable, IResettable
+    public class MapService : IMapService, IStartable, IDisposable, IResettable 
     {
         private const int START_COUNT = 20;
         private const int EXPAND_COUNT = 10;
@@ -34,6 +36,7 @@ namespace Service
             for (int i = 0; i < START_COUNT; i++)
             {
                 var pipe = _factory.Create(startX + i * PIPE_DISTANCE);
+                pipe.Index = i;
                 _pipes.Add(pipe);
             }
         }
@@ -56,6 +59,7 @@ namespace Service
             for (int i = 0; i < EXPAND_COUNT; i++)
             {
                 var pipe = _factory.Create(startX + i * PIPE_DISTANCE);
+                pipe.Index = i;
                 _pipes.Add(pipe);
             }
         }
@@ -73,5 +77,15 @@ namespace Service
         {
             EventBus<PipePairMoveEndEvent>.Unsubscribe(OnPipeEnd);
         }
+
+        public PipePair GetPipe(int index)
+        {
+            return _pipes.FirstOrDefault(x=> x.Index == index);
+        }
+    }
+
+    public interface IMapService
+    {
+        public PipePair GetPipe(int index);
     }
 }
