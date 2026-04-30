@@ -1,4 +1,5 @@
-﻿using ScriptableObjects;
+﻿using Cysharp.Threading.Tasks;
+using ScriptableObjects;
 
 namespace Booster
 {
@@ -8,9 +9,11 @@ namespace Booster
 
     public interface IBooster
     {
+        public void SetData(BoosterRules data);
         public BoosterType BoosterType { get; }
         float Duration { get; }
-        void Activate();
+        UniTask Activate(Bird bird);
         void Deactivate();
     }
+    
 }

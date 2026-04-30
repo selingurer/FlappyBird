@@ -7,6 +7,15 @@ public class PipePassTrigger : MonoBehaviour
 
     private bool _passed;
 
+    public bool Passed
+    {
+        get => _passed;
+        set
+        {
+            _passed = value;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (_passed) return;

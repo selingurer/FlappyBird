@@ -18,7 +18,7 @@ namespace Booster
         {
             if (other.CompareTag("Bird"))
             {
-                _boosterService.Boost(BoosterType);
+                _boosterService.Boost(BoosterType, other.gameObject.GetComponent<Bird>());
                 EventBus<PickupActive>.Publish(new PickupActive
                 {
                     Pickup = this

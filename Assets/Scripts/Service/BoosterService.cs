@@ -18,9 +18,20 @@ namespace Service
         {
             _boosterDatabase = boosterDatabase;
             _boosters = boosters;
+
+            BoosterSetData();
         }
 
-        public void Boost(BoosterType type)
+        public void BoosterSetData()
+        {
+            foreach (var booster in _boosters)
+            {
+                var boosterData = _boosterDatabase.GetBoosterData(booster.BoosterType);
+                booster.SetData(boosterData);
+            }
+        }
+
+        public void Boost(BoosterType type, Bird bird)
         {
             _boosterDatabase.GetBoosterData(type);
             var booster = _boosters.FirstOrDefault(x => x.BoosterType == type);
@@ -31,12 +42,12 @@ namespace Service
                 return;
             }
 
-            booster.Activate();
+            booster.Activate(bird);
         }
     }
 
     public interface IBoosterService
     {
-        public void Boost(BoosterType type);
+        public void Boost(BoosterType type, Bird bird);
     }
 }

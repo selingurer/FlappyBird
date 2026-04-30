@@ -1,7 +1,5 @@
-using System;
 using DefaultNamespace;
 using Event;
-using Event.Boosters;
 using Event.GameFlow;
 using Service;
 using UnityEngine;
@@ -41,6 +39,8 @@ public class PipePair : MonoBehaviour
         {
             Index = Index,
         });
+
+        _pipePassTrigger.Passed = false;
     }
 
     public void ApplyLayout(PipeLayout layout)
@@ -83,6 +83,11 @@ public class PipePair : MonoBehaviour
     {
         EventBus<PipePairMoveEndEvent>
             .Publish(new PipePairMoveEndEvent(this));
+    }
+
+    public float GetNextGapCenterY()
+    {
+        return transform.position.y;
     }
 }
 

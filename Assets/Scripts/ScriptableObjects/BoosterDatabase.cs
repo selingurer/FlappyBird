@@ -21,11 +21,11 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "BoosterData", menuName = "ScriptableObjects/BoosterData")]
     public class BoosterDatabase : ScriptableObject
     {
-        public List<BoosterData> Boosters;
+        public List<BoosterRules> Boosters;
 
-        public BoosterData GetBoosterData(BoosterType boosterType)
+        public BoosterRules GetBoosterData(BoosterType boosterType)
         {
-            BoosterData data = Boosters.Find(x => x.Type == boosterType);
+            BoosterRules data = Boosters.Find(x => x.Type == boosterType);
 
             if (data == null)
             {
