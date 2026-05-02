@@ -14,12 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Boosters:
   - Type: 0
-    Weight: 0
-    Duration: 5
-    PipeGap: 5
-    Sprite: {fileID: -7155409131879864957, guid: 36f321d483915204cb6f27fb7977e98f, type: 3}
+    Duration: 10
   - Type: 1
-    Weight: 0
     Duration: 5
-    PipeGap: 5
-    Sprite: {fileID: -6497994550994121819, guid: 209141dc7da93a94b8e1ac2fa7183093, type: 3}

@@ -8,7 +8,7 @@ using ScriptableObjects;
 using Service;
 using UnityEngine;
 
-public class MagnetFlightBooster : IMagnetFlight, IDisposable
+public class MagnetFlightBooster : IBooster, IDisposable
 {
     private const float Force = 4f;
     private const float MaxSpeed = 5f;
@@ -17,7 +17,7 @@ public class MagnetFlightBooster : IMagnetFlight, IDisposable
     private int _nextPipeIndex;
 
     private CancellationTokenSource _cts;
-    public BoosterType BoosterType { get; private set; }
+    public BoosterType BoosterType { get => BoosterType.MagnetFlight;}
 
     public float Duration { get; private set; }
 
@@ -29,7 +29,6 @@ public class MagnetFlightBooster : IMagnetFlight, IDisposable
 
     public void SetData(BoosterRules data)
     {
-        BoosterType = data.Type;
         Duration = data.Duration;
     }
 

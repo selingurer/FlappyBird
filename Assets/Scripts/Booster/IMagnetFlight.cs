@@ -3,10 +3,6 @@ using ScriptableObjects;
 
 namespace Booster
 {
-    public interface IMagnetFlight : IBooster
-    {
-    }
-
     public interface IBooster
     {
         public void SetData(BoosterRules data);

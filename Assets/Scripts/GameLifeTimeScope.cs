@@ -34,9 +34,6 @@ public class GameLifeTimeScope : LifetimeScope
                     _pairPrefab,
                     _pairTransform),
             Lifetime.Singleton);
-     
-        
-        builder.Register<MagnetFlightBooster>(Lifetime.Singleton).As<IBooster>();
         
         builder.RegisterComponentInHierarchy<AudioPlayer>().AsImplementedInterfaces();
         builder.Register<LeanTouchService>(Lifetime.Singleton).AsImplementedInterfaces();
@@ -61,6 +58,8 @@ public class GameLifeTimeScope : LifetimeScope
         builder.Register<BirdSoundHandler>(Lifetime.Singleton).AsImplementedInterfaces().WithParameter(_birdSoundMap);
         builder.Register<SaveLoadService>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.RegisterEntryPoint<ScorePersistenceHandler>();
+        builder.Register<MagnetFlightBooster>(Lifetime.Singleton).As<IBooster>();
+        builder.Register<ShieldBooster>(Lifetime.Singleton).As<IBooster>();
         builder.Register<BoosterService>(Lifetime.Singleton).AsImplementedInterfaces().WithParameter(_boosterDatabase);
         builder.Register<BoosterPickupService>(Lifetime.Singleton).AsImplementedInterfaces().WithParameter(_pickupSpawnData);
         

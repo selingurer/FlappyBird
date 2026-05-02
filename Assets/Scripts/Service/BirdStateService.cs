@@ -1,4 +1,6 @@
-﻿using Event;
+﻿using Booster;
+using Event;
+using Event.Boosters;
 using Service;
 
 namespace DefaultNamespace
@@ -14,7 +16,9 @@ namespace DefaultNamespace
     public class BirdStateService : IBirdStateService
     {
         private BirdState _currentState = BirdState.MidFlap;
-
+        private bool _isShieldActive;
+        
+        public bool IsShieldActive { get => _isShieldActive; }
         public void EvaluateVelocity(float yVelocity)
         {
             if (_currentState == BirdState.Dead)
@@ -28,9 +32,22 @@ namespace DefaultNamespace
         
         public void OnDeath()
         {
+            if (_isShieldActive)
+            {
+                EventBus<ShieldBoosterActive>.Publish(new ShieldBoosterActive());
+                return;
+            }
+            
             SetState(BirdState.Dead);
            
         }
+
+        public void SetShield(bool active)
+        {
+            _isShieldActive = active;
+        }
+
+
 
         public void Reset()
         {
@@ -56,5 +73,8 @@ namespace DefaultNamespace
     {
         public void EvaluateVelocity(float yVelocity);
         public void OnDeath();
+        
+        void SetShield(bool active);
+        bool IsShieldActive { get; }
     }
 }
