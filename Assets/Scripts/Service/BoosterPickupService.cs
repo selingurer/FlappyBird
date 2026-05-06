@@ -72,7 +72,7 @@ namespace Service
             var pickup = _pickupPool.GetObject();
             var pipe = _mapService.GetPipe(_indexPipe);
             pickup.transform.parent = pipe.PipePassTriggerTransform;
-            pickup.transform.localPosition = Vector3.zero;
+            pickup.transform.localPosition = new Vector3(0,0,pickup.transform.localPosition.z);
             pickup.Initialize(_boosterSpawnEntry.Booster.Type,_boosterSpawnEntry.Booster.Sprite);
             _counterPipeTrigger = 0;
             GetRandomPickup();

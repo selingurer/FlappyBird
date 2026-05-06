@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3356862001089256866}
   - component: {fileID: 6257507223379813727}
   - component: {fileID: -1648236351472537092}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PickupBooster
   m_TagString: Pickup
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 5921988923962299183}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.23152056, w: 0.97283}
-  m_LocalPosition: {x: -0.62, y: -1.09, z: 0}
+  m_LocalPosition: {x: -0.62, y: -1.09, z: -1}
   m_LocalScale: {x: 0.14, y: 0.14, z: 0.14}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -208134083
-  m_SortingLayer: 1
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -7155409131879864957, guid: 36f321d483915204cb6f27fb7977e98f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

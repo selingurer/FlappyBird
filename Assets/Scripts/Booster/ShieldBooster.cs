@@ -2,8 +2,9 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using DefaultNamespace;
+using Event;
+using Event.Boosters;
 using ScriptableObjects;
-using UnityEngine;
 
 namespace Booster
 {
@@ -40,18 +41,29 @@ namespace Booster
             _cts = new CancellationTokenSource();
             
             _birdStateService.SetShield(true);
-
+            
+            EventBus<BoosterStarted>.Publish(new BoosterStarted
+            {
+                BoosterType = BoosterType,
+                ParentVisualTransform =  bird.transform,
+                BoosterDuration = Duration
+            });
+            
             try
             {
                 await UniTask.Delay(TimeSpan.FromSeconds(Duration), cancellationToken: _cts.Token);
             }
             catch (OperationCanceledException)
             {
-                return;
+                
             }
             finally
             {
                 _birdStateService.SetShield(false);
+                EventBus<BoosterEnded>.Publish(new BoosterEnded
+                {
+                    BoosterType = BoosterType
+                });
             }
           
         }

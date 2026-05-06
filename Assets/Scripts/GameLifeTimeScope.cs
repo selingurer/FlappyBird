@@ -1,5 +1,6 @@
 using Booster;
 using DefaultNamespace;
+using DefaultNamespace.Shader;
 using ScriptableObjects;
 using ScriptableObjects.UI;
 using Service;
@@ -20,12 +21,14 @@ public class GameLifeTimeScope : LifetimeScope
     [SerializeField] private Transform _canvasTransform;
     [SerializeField] private PickupSpawnData _pickupSpawnData;
     [SerializeField] private BoosterDatabase _boosterDatabase;
+    [SerializeField] private BoosterVisualData _boosterVisualData;
+
     protected override void Configure(IContainerBuilder builder)
     {
         builder.RegisterInstance(_pairTransform);
         builder.RegisterInstance(_pairPrefab);
         builder.RegisterInstance(Camera.main);
-        
+
         builder.RegisterComponentInHierarchy<Bird>()
             .As<IResettable>();
         builder.Register<ObjectPool<PipePair>>(resolver =>
@@ -34,11 +37,14 @@ public class GameLifeTimeScope : LifetimeScope
                     _pairPrefab,
                     _pairTransform),
             Lifetime.Singleton);
-        
+
         builder.RegisterComponentInHierarchy<AudioPlayer>().AsImplementedInterfaces();
         builder.Register<LeanTouchService>(Lifetime.Singleton).AsImplementedInterfaces();
+
         builder.Register<PipeFactory>(Lifetime.Singleton);
         builder.Register<PipeLayoutFactory>(Lifetime.Singleton);
+        builder.Register<BoosterVisualFactory>(Lifetime.Singleton).AsImplementedInterfaces();
+
         builder.Register<PipeLayoutCalculator>(Lifetime.Singleton);
         builder.Register<GameStateService>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.Register<DifficultyService>(Lifetime.Singleton).AsImplementedInterfaces();
@@ -54,15 +60,17 @@ public class GameLifeTimeScope : LifetimeScope
             .WithParameter(_birdVisualData).WithParameter(_birdSpriteRenderer);
         builder.Register<SoundService>(Lifetime.Singleton)
             .As<ISoundService>().WithParameter(_soundDatas);
-        builder.Register<UIService>(Lifetime.Singleton).AsImplementedInterfaces().WithParameter(_uiPanelData).WithParameter(_canvasTransform);
+        builder.Register<UIService>(Lifetime.Singleton).AsImplementedInterfaces().WithParameter(_uiPanelData)
+            .WithParameter(_canvasTransform);
         builder.Register<BirdSoundHandler>(Lifetime.Singleton).AsImplementedInterfaces().WithParameter(_birdSoundMap);
         builder.Register<SaveLoadService>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.RegisterEntryPoint<ScorePersistenceHandler>();
         builder.Register<MagnetFlightBooster>(Lifetime.Singleton).As<IBooster>();
         builder.Register<ShieldBooster>(Lifetime.Singleton).As<IBooster>();
         builder.Register<BoosterService>(Lifetime.Singleton).AsImplementedInterfaces().WithParameter(_boosterDatabase);
-        builder.Register<BoosterPickupService>(Lifetime.Singleton).AsImplementedInterfaces().WithParameter(_pickupSpawnData);
-        
-    
+        builder.Register<BoosterPickupService>(Lifetime.Singleton).AsImplementedInterfaces()
+            .WithParameter(_pickupSpawnData);
+        builder.Register<BoosterVisualService>(Lifetime.Singleton).AsImplementedInterfaces()
+            .WithParameter(_boosterVisualData);
     }
 }

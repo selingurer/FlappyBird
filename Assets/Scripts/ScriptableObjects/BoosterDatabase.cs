@@ -18,7 +18,7 @@ namespace ScriptableObjects
         public float Duration;
     }
     
-    [CreateAssetMenu(fileName = "BoosterData", menuName = "ScriptableObjects/BoosterData")]
+    [CreateAssetMenu(fileName = "BoosterDatabase", menuName = "ScriptableObjects/BoosterDatabase")]
     public class BoosterDatabase : ScriptableObject
     {
         public List<BoosterRules> Boosters;

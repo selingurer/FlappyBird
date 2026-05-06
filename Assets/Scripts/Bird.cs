@@ -18,7 +18,7 @@ public class Bird : MonoBehaviour, IResettable
         _touchService.OnTap += Jump;
     }
 
-    private static Vector3 GetBirdStartPosition(Camera cam)
+    private Vector3 GetBirdStartPosition(Camera cam)
     {
         float height = cam.orthographicSize * 2f;
         float width = height * cam.aspect;
@@ -28,7 +28,9 @@ public class Bird : MonoBehaviour, IResettable
         float x = leftEdge + width * 0.2f;
         float y = cam.transform.position.y;
 
-        return new Vector3(x, y, 0f);
+        float z = gameObject.transform.position.z;
+        
+        return new Vector3(x, y, z);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
